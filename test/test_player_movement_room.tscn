@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://7sttsy4ngh4e"]
+
+[ext_resource type="PackedScene" uid="uid://dxtm76ih2dl83" path="res://Objects/player.tscn" id="1_pplu1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qlpi1"]
+size = Vector3(2.5, 0.1, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iiuq3"]
+size = Vector3(2.5, 2.5, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8gxbd"]
+size = Vector3(0.1, 2.5, 2.5)
+
+[node name="Sandbox" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.179091, 1.49771, 4.44791)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.505582, 0.801256, -0.319961, 0, 0.370849, 0.928693, 0.862778, -0.469531, 0.187495, -1.80812, 6.92806, 0.548901)
+
+[node name="Player" parent="." instance=ExtResource("1_pplu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42637, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(9.36664, 0, 0, 0, 0.288951, 0, 0, 0, 9.11196, 0, 0, 0)
+use_collision = true
+
+[node name="JumpPassZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="JumpPassZone"]
+shape = SubResource("BoxShape3D_qlpi1")
+
+[node name="ForwardPassZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ForwardPassZone"]
+shape = SubResource("BoxShape3D_iiuq3")
+
+[node name="BackwardPassZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BackwardPassZone"]
+shape = SubResource("BoxShape3D_iiuq3")
+
+[node name="LeftPassZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftPassZone"]
+shape = SubResource("BoxShape3D_8gxbd")
+
+[node name="RightPassZone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightPassZone"]
+shape = SubResource("BoxShape3D_8gxbd")

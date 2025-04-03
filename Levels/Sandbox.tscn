@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://brs0hqt3ajtev"]
+
+[ext_resource type="PackedScene" uid="uid://dxtm76ih2dl83" path="res://Objects/player.tscn" id="1_gsebc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fwq5i"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nenwv"]
+size = Vector3(10, 0.5, 10)
+
+[node name="Sandbox" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.179091, 1.49771, 4.44791)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_fwq5i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_nenwv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.505582, 0.801256, -0.319961, 0, 0.370849, 0.928693, 0.862778, -0.469531, 0.187495, -1.80812, 6.92806, 0.548901)
+
+[node name="Player" parent="." instance=ExtResource("1_gsebc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.52965, 0)
