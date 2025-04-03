@@ -6,8 +6,10 @@ public partial class Player : CharacterBody3D
 	public enum State {IDLE, RUNNING, JUMPING, FALLING}
 
 	// Public Vars
-	public const float Speed = 5.0f;
-	public const float JumpVelocity = 4.5f;
+	[Export]
+	public float Speed = 5.0f;
+	[Export]
+	public float JumpVelocity = 4.5f;
 
     // Private Vars
 	private State m_States;

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cn85tfi4ynpaq"]
+
+[ext_resource type="Script" uid="uid://dp2ipp7tm4743" path="res://Objects/Scripts/Bullet.cs" id="1_ktj6t"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ktj6t"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_m484p"]
+radius = 0.1
+height = 0.2
+
+[node name="Bullet" type="CharacterBody3D"]
+script = ExtResource("1_ktj6t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ktj6t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_m484p")
