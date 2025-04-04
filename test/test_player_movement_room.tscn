@@ -6,10 +6,10 @@
 size = Vector3(2.5, 0.1, 2.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iiuq3"]
-size = Vector3(2.5, 2.5, 0.1)
+size = Vector3(2.5, 2.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8gxbd"]
-size = Vector3(0.1, 2.5, 2.5)
+size = Vector3(0.5, 2.5, 2.5)
 
 [node name="Sandbox" type="Node3D"]
 
@@ -28,30 +28,35 @@ use_collision = true
 
 [node name="JumpPassZone" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="JumpPassZone"]
 shape = SubResource("BoxShape3D_qlpi1")
 
-[node name="ForwardPassZone" type="Area3D" parent="."]
+[node name="NegZPassZone" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3)
+collision_mask = 15
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ForwardPassZone"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NegZPassZone"]
 shape = SubResource("BoxShape3D_iiuq3")
 
-[node name="BackwardPassZone" type="Area3D" parent="."]
+[node name="PosZPassZone" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3)
+collision_mask = 15
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BackwardPassZone"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PosZPassZone"]
 shape = SubResource("BoxShape3D_iiuq3")
 
-[node name="LeftPassZone" type="Area3D" parent="."]
+[node name="NegXPassZone" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.5, 0)
+collision_mask = 15
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftPassZone"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NegXPassZone"]
 shape = SubResource("BoxShape3D_8gxbd")
 
-[node name="RightPassZone" type="Area3D" parent="."]
+[node name="PosXPassZone" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 0)
+collision_mask = 15
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RightPassZone"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PosXPassZone"]
 shape = SubResource("BoxShape3D_8gxbd")

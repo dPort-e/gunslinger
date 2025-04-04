@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cth2vf5n8hdkh"]
+
+[ext_resource type="Script" uid="uid://desfnpy3qi1j7" path="res://Objects/Scripts/Gun.cs" id="1_tbe61"]
+[ext_resource type="PackedScene" uid="uid://cn85tfi4ynpaq" path="res://Objects/bullet.tscn" id="2_nmomp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2i4gt"]
+albedo_color = Color(0.364706, 0.364706, 0.364706, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y0qk3"]
+material = SubResource("StandardMaterial3D_2i4gt")
+size = Vector3(0.25, 0.25, 0.5)
+
+[node name="Gun" type="MeshInstance3D"]
+layers = 2
+mesh = SubResource("BoxMesh_y0qk3")
+script = ExtResource("1_tbe61")
+RateOfFire = 0.5
+bullet_scene = ExtResource("2_nmomp")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.250168)
+target_position = Vector3(0, 0, 1)

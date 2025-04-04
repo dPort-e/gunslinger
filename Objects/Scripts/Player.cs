@@ -11,9 +11,19 @@ public partial class Player : CharacterBody3D
 	[Export]
 	public float JumpVelocity = 4.5f;
 
+	[Export]
+	public float rotation_speed = 1.0f;
+
+	[Export]
+	public Camera3D camera3D;
+
     // Private Vars
 	private State m_States;
 	private Vector3 m_Velocity;
+
+	private float target_rotation;
+
+	private MeshInstance3D m_MeshInstance;
 
     // Functions
 	public State States 
@@ -21,6 +31,12 @@ public partial class Player : CharacterBody3D
 		get { return m_States; }
 		set { m_States = value; }
 	}
+
+    public override void _Ready()
+    {
+        m_MeshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
+    }
+
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -37,7 +53,9 @@ public partial class Player : CharacterBody3D
 		direction.Z = Input.GetActionStrength("Backward") - Input.GetActionStrength("Forward");
 		direction.Y = Input.GetActionStrength("Jump");
 
-		set_movement(direction);
+		direction = direction.Rotated(Vector3.Up, camera3D.GlobalRotation.Y);
+
+		set_movement(direction, delta);
 	}
 
 	void jump()
@@ -50,7 +68,7 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
-	void set_movement(Vector3 direction)
+	void set_movement(Vector3 direction, double delta)
 	{
 		
 		if (direction != Vector3.Zero)
@@ -63,6 +81,12 @@ public partial class Player : CharacterBody3D
 			{
 				jump();
 			}
+
+			// Update mesh rot target only when moving
+			target_rotation = Mathf.Atan2(direction.X, direction.Z) - Rotation.Y;
+			Vector3 meshRot = m_MeshInstance.Rotation;
+			meshRot.Y = (float)Mathf.LerpAngle(m_MeshInstance.Rotation.Y, target_rotation, rotation_speed * delta);
+			m_MeshInstance.Rotation = meshRot;
 		}
 		else
 		{

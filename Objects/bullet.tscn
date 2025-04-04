@@ -2,18 +2,32 @@
 
 [ext_resource type="Script" uid="uid://dp2ipp7tm4743" path="res://Objects/Scripts/Bullet.cs" id="1_ktj6t"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ktj6t"]
-radius = 0.1
-
 [sub_resource type="SphereMesh" id="SphereMesh_m484p"]
 radius = 0.1
 height = 0.2
 
-[node name="Bullet" type="CharacterBody3D"]
-script = ExtResource("1_ktj6t")
+[sub_resource type="SphereShape3D" id="SphereShape3D_ktj6t"]
+radius = 0.1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_ktj6t")
+[node name="Bullet" type="Node3D"]
+top_level = true
+script = ExtResource("1_ktj6t")
+BulletSpeed = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_m484p")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+collision_mask = 9
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 13
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_ktj6t")

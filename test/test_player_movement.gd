@@ -17,7 +17,7 @@ func test_can_jump()->void:
 func test_can_move_forward()->void:
 	var runner := scene_runner(scene_link)
 	var player = runner.invoke("find_child", "Player")
-	var zone = runner.invoke("find_child", "ForwardPassZone")
+	var zone = runner.invoke("find_child", "NegZPassZone")
 	await await_millis(500)
 	runner.simulate_key_press(KEY_W)
 	await assert_signal(zone).wait_until(1000).is_emitted("body_entered", [player])
@@ -25,7 +25,7 @@ func test_can_move_forward()->void:
 func test_can_move_backward()->void:
 	var runner := scene_runner(scene_link)
 	var player = runner.invoke("find_child", "Player")
-	var zone = runner.invoke("find_child", "BackwardPassZone")
+	var zone = runner.invoke("find_child", "PosZPassZone")
 	await await_millis(500)
 	runner.simulate_key_press(KEY_S)
 	await assert_signal(zone).wait_until(1000).is_emitted("body_entered", [player])
@@ -33,7 +33,7 @@ func test_can_move_backward()->void:
 func test_can_move_left()->void:
 	var runner := scene_runner(scene_link)
 	var player = runner.invoke("find_child", "Player")
-	var zone = runner.invoke("find_child", "LeftPassZone")
+	var zone = runner.invoke("find_child", "NegXPassZone")
 	await await_millis(500)
 	runner.simulate_key_press(KEY_A)
 	await assert_signal(zone).wait_until(1000).is_emitted("body_entered", [player])
@@ -41,7 +41,7 @@ func test_can_move_left()->void:
 func test_can_move_right()->void:
 	var runner := scene_runner(scene_link)
 	var player = runner.invoke("find_child", "Player")
-	var zone = runner.invoke("find_child", "RightPassZone")
+	var zone = runner.invoke("find_child", "PosXPassZone")
 	await await_millis(500)
 	runner.simulate_key_press(KEY_D)
 	await assert_signal(zone).wait_until(1000).is_emitted("body_entered", [player])

@@ -1,8 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://dxtm76ih2dl83"]
 
 [ext_resource type="Script" uid="uid://d4bjytelgm7ub" path="res://Objects/Scripts/Player.cs" id="1_xypvi"]
-[ext_resource type="Script" uid="uid://desfnpy3qi1j7" path="res://Objects/Scripts/Gun.cs" id="2_3y5cq"]
-[ext_resource type="PackedScene" uid="uid://cn85tfi4ynpaq" path="res://Objects/bullet.tscn" id="3_2i4gt"]
+[ext_resource type="PackedScene" uid="uid://cth2vf5n8hdkh" path="res://Objects/gun.tscn" id="2_0ad8t"]
+[ext_resource type="Script" uid="uid://cphlynunndcwe" path="res://Objects/Scripts/camera_spring_arm.gd" id="4_0ad8t"]
+[ext_resource type="Script" uid="uid://da57el06r6fov" path="res://Objects/Scripts/camera_follow.gd" id="5_x20fu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y0qk3"]
 albedo_color = Color(1, 0, 1, 1)
@@ -13,30 +14,37 @@ size = Vector3(0.595, 2, 0.5)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c3mn1"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2i4gt"]
-albedo_color = Color(0.364706, 0.364706, 0.364706, 1)
+[sub_resource type="SphereShape3D" id="SphereShape3D_x20fu"]
+margin = 0.25
 
-[sub_resource type="BoxMesh" id="BoxMesh_y0qk3"]
-material = SubResource("StandardMaterial3D_2i4gt")
-size = Vector3(0.25, 0.25, 0.5)
-
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera3D")]
+collision_layer = 2
 script = ExtResource("1_xypvi")
+rotation_speed = 5.0
+camera3D = NodePath("SpringArmPivot/Camera3D")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_r4lfw")
+
+[node name="Gun" parent="Body" instance=ExtResource("2_0ad8t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.45)
+skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_c3mn1")
 
-[node name="Gun" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.45)
-mesh = SubResource("BoxMesh_y0qk3")
-script = ExtResource("2_3y5cq")
-RateOfFire = 0.5
-bullet_scene = ExtResource("3_2i4gt")
+[node name="SpringArmPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.789649, 0)
+top_level = true
+script = ExtResource("4_0ad8t")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 2.76905e-08, 0.948512, 0.316742, -8.29215e-08, 0.316742, -0.948512, 0, 1.70624, -2.58729)
+[node name="SpringArm3D" type="SpringArm3D" parent="SpringArmPivot"]
+shape = SubResource("SphereShape3D_x20fu")
+spring_length = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+[node name="SpringPos" type="Node3D" parent="SpringArmPivot/SpringArm3D"]
+
+[node name="Camera3D" type="Camera3D" parent="SpringArmPivot" node_paths=PackedStringArray("spring_arm")]
+script = ExtResource("5_x20fu")
+spring_arm = NodePath("../SpringArm3D/SpringPos")
+lerp_power = 5.0
