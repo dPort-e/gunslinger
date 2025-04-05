@@ -9,8 +9,7 @@ jobs:
       - uses: MikeSchulze/gdunit4-action@v1
         with:
           dotnet-version: 'net9.0'
-          godot-version: '4.4.0'
-          version: 'latest'
+          godot-version: '4.4'
           godot-net: true
           warnings-as-errors: true
           paths: 'res://test'
