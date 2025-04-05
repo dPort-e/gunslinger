@@ -4,9 +4,17 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      pull-requests: write
+      statuses: write
     steps:
-      - name: GdUnit4 - Test Runner Action
-        uses: MikeSchulze/gdUnit4-action@v1.1.6
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: MikeSchulze/gdUnit4-action@v1.1.6
         with:
           dotnet-version: 'net9.0'
           godot-version: '4.4'
