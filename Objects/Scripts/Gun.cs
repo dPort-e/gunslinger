@@ -50,6 +50,7 @@ public partial class Gun : MeshInstance3D
         AddChild(bulletInstance);
 
         canShoot = false;
+        m_timer.Start();
     }
 
 }

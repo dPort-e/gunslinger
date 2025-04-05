@@ -34,7 +34,7 @@ public partial class Player : CharacterBody3D
 
     public override void _Ready()
     {
-        m_MeshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
+        m_MeshInstance = GetNode<MeshInstance3D>("Body");
     }
 
 
