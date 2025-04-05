@@ -12,4 +12,4 @@ jobs:
           godot-version: '4.4'
           godot-net: true
           warnings-as-errors: true
-          paths: 'res://test'
+          paths: 'res://tests'
