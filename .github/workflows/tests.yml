@@ -6,8 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: GdUnit4 - Test Runner Action
-      - uses: actions/checkout@v4
-      - uses: MikeSchulze/gdUnit4-action@v1.1.6
+        uses: MikeSchulze/gdUnit4-action@v1.1.6
         with:
           dotnet-version: 'net9.0'
           godot-version: '4.4'
